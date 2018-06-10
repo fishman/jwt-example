@@ -1,0 +1,22 @@
+* Security
+- don't parse the header for the JWT for encryption settings
+- use a preshared key for this simple use case
+- for more security we can rotate the keys and store them in vault
+* Build & Run
+* Architecture
+** Tag v1.0
+*** Rails Web
+    - devise login
+    - html served
+    - synchronous
+*** Greeting API
+   - grpc go greeting certificate auth
+   - (I could also just use a JSON Api)
+*** Deployment
+* Security
+** v1 Shared Secret
+*** Mitigation
+Rotate shared secret, and distributed with vault
+** Pub Key
+- Either there is a pub key store somewhere
+- Or apps are deployed with each others pub keys - this is an issue
