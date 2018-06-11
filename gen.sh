@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-protoc -I ./protobuf --go_out=plugins=grpc:./protobuf ./protobuf/greeter.proto
+protoc -I ./protobuf --go_out=plugins=grpc:./go/src/greeter_proto ./protobuf/greeter.proto
