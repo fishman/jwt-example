@@ -12,7 +12,7 @@ if (!process.browser) {
 
 function create (initialState, { getToken }) {
   const httpLink = createHttpLink({
-    uri: 'https://api.graph.cool/simple/v1/cj5geu3slxl7t0127y8sity9r',
+    uri: 'http://localhost:3000/graphql',
     credentials: 'same-origin'
   })
 

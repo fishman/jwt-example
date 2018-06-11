@@ -4,13 +4,19 @@ import cookie from 'cookie'
 import redirect from '../lib/redirect'
 
 const CREATE_USER = gql`
-    mutation Create($name: String!, $email: String!, $password: String!) {
-        createUser(name: $name, authProvider: { email: { email: $email, password: $password }}) {
-            id
-        }
-        signinUser(email: { email: $email, password: $password }) {
-            token
+mutation signUp($name: String, $email: String, $password: String, $password_confirmation: String) {
+  signUp(input: { name: $name, email: $email, password: $password, password_confirmation: $password_confirmation }) {
+    currentUser: user {
+      id
+      name
+      email
+      token
     }
+    messages {
+      field
+      message
+    }
+  }
 }
 `
 
