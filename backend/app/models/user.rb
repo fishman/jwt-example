@@ -1,12 +1,15 @@
 class User < ApplicationRecord
+  include ActionView::Helpers::SanitizeHelper
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :jwt_authenticatable, jwt_revocation_strategy: JwtBlacklist
+    :recoverable, :rememberable, :trackable, :validatable
 
+  before_save :sanitize_name
 
-  def jwt_payload
-    { foo: "bar" }
-  end
+  private
+    def sanitize_name
+      self.name = sanitize(self.name)
+    end
 end

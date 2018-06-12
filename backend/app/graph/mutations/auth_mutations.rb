@@ -6,14 +6,18 @@ module AuthMutations
     input_field :email, types.String
     input_field :password, types.String
 
+    # return_field :user, UserType
     return_field :token, types.String
     return_field :messages, types[FieldErrorType]
 
     resolve ->(obj, inputs, ctx) {
-      user = User.find_by(email: inputs[:email])
-      if user.present? && user.authenticate(inputs[:password])
+      user = User.find_for_database_authentication(email: inputs[:email])
+      if user.present? && user.valid_password?(inputs[:password])
         user.update_tracked_fields(ctx[:request])
-        { token: user.generate_access_token! }
+        {
+          token: JsonWebToken.encode({user_id: user.id, name: user.name}),
+          # user: user
+        }
       else
         FieldError.error("Invalid email or password")
       end

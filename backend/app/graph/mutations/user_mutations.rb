@@ -1,3 +1,5 @@
+require 'json_web_token'
+
 module UserMutations
   SignUp = GraphQL::Relay::Mutation.define do
     name "signUp"
@@ -9,6 +11,7 @@ module UserMutations
     input_field :password_confirmation, types.String
 
     return_field :user, UserType
+    return_field :token, types.String
     return_field :messages, types[FieldErrorType]
 
     resolve ->(obj, inputs, ctx) {
@@ -16,8 +19,10 @@ module UserMutations
 
       if user.save
         user.update_tracked_fields(ctx[:request])
-        user.generate_access_token!
-        { user: user }
+        {
+          token: JsonWebToken.encode({user_id: user.id, name: user.name}),
+          user: user
+        }
       else
         { messages: user.fields_errors }
       end

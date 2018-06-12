@@ -4,11 +4,15 @@ import cookie from 'cookie'
 import redirect from '../lib/redirect'
 
 const SIGN_IN = gql`
-    mutation Signin($email: String!, $password: String!) {
-        signinUser(email: { email: $email, password: $password}) {
-            token
-        }
+mutation signIn($email: String, $password: String) {
+  signIn(input: { email: $email, password: $password }) {
+    token
+    messages {
+      message
+      field
     }
+  }
+}
 `
 
 // TODO: Find a better name for component.
@@ -18,8 +22,8 @@ const SigninBox = (props) => {
   return (
     <Mutation mutation={SIGN_IN} onCompleted={(data) => {
       // Store the token in cookie
-      document.cookie = cookie.serialize('token', data.signinUser.token, {
-        maxAge: 30 * 24 * 60 * 60 // 30 days
+      document.cookie = cookie.serialize('token', data.signIn.token, {
+        maxAge: 30 * 60 // 30 minutes
       })
       // Force a reload of all the current queries now that the user is
       // logged in

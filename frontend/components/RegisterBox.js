@@ -10,8 +10,8 @@ mutation signUp($name: String, $email: String, $password: String, $password_conf
       id
       name
       email
-      token
     }
+    token
     messages {
       field
       message
@@ -26,8 +26,8 @@ const RegisterBox = (props) => {
   return (
     <Mutation mutation={CREATE_USER} onCompleted={(data) => {
       // Store the token in cookie
-      document.cookie = cookie.serialize('token', data.signinUser.token, {
-        maxAge: 30 * 24 * 60 * 60 // 30 days
+      document.cookie = cookie.serialize('token', data.signUp.token, {
+        maxAge: 30 * 60 // 30 minutes
       })
       // Force a reload of all the current queries now that the user is
       // logged in
