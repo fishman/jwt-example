@@ -41,6 +41,8 @@ gem 'graphql-batch'
 gem 'graphiql-rails'
 gem 'graphql-formatter'
 gem 'newrelic_rpm'
+gem 'grpc'
+
 group :production do
   # gem 'pg'
   gem 'optics-agent'
@@ -52,6 +54,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'grpc-tools'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
@@ -105,4 +108,3 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
 end
-
