@@ -1,7 +1,24 @@
+* TODO
+  - [X] set static shared key
+  - [X] create ruby greeter client
+  - [X] add JWT to go server
+  - [ ] ansible deployment
+  - [ ] add expiration on JWT token
+  - [ ] Move const config from greeter_server to config files
+  - [ ] add docker compose
+  - [ ] add TLS for service communication
+  - [ ] add openid_connect and auth proxy
+  - [ ] add something like linkerd for service communication
 * Security
-- don't parse the header for the JWT for encryption settings
-- use a preshared key for this simple use case
-- for more security we can rotate the keys and store them in vault
+- XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
+- self.new(h(message))
+- self.name = sanitize(self.name)
+- JWT had a security bug where specifying the algo none would cause it to accept bad tokens, ruby doesn't allow that
+  - https://github.com/jwt/ruby-jwt/issues/75
+- I'm use HS256 default JWT tokens with shared keys.
+- For more security we can rotate the shared keys and store them in Vault rather than config files
+- There's no TLS between the services, so someone could MITM the go greeting
+ service
 * Build & Run
 * Architecture
 ** Tag v1.0
@@ -16,7 +33,9 @@
 * Security
 ** v1 Shared Secret
 *** Mitigation
-Rotate shared secret, and distributed with vault
+    Rotate shared secret, and distributed with vault
 ** Pub Key
 - Either there is a pub key store somewhere
 - Or apps are deployed with each others pub keys - this is an issue
+** GDPR Why google analytics?
+Cause I want to know when you check out the page
