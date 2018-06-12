@@ -5,17 +5,19 @@ import { withApollo, compose } from 'react-apollo'
 import withData from '../lib/withData'
 import redirect from '../lib/redirect'
 import checkLoggedIn from '../lib/checkLoggedIn'
+import getGreeting from '../lib/getGreeting'
 
 class Index extends React.Component {
   static async getInitialProps (context, apolloClient) {
     const { loggedInUser } = await checkLoggedIn(context, apolloClient)
+    const { greeting } = await getGreeting(context, apolloClient)
 
-    if (!loggedInUser.user) {
+    if (!loggedInUser.currentUser) {
       // If not signed in, send them somewhere more useful
       redirect(context, '/signin')
     }
 
-    return { loggedInUser }
+    return { loggedInUser, greeting }
   }
 
   signout = () => {
@@ -34,7 +36,8 @@ class Index extends React.Component {
   render () {
     return (
       <div>
-        Hello {this.props.loggedInUser.user.name}!<br />
+        Hello {this.props.loggedInUser.currentUser.name}!<br />
+        Greeting Message: {this.props.greeting.greeting.message} <br />
         <button onClick={this.signout}>Sign out</button>
       </div>
     )

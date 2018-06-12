@@ -88,7 +88,7 @@ func (s *server) SayHello(ctx context.Context, in *pb.HelloRequest) (*pb.HelloRe
 	name, ok := claims["name"].(string)
 
 	if !ok {
-		return nil, grpc.Errorf(codes.NotFound, err.Error())
+		return nil, grpc.Errorf(codes.NotFound, "invalid token payload.")
 	}
 
 	return &pb.HelloReply{Message: "Hello " + name}, nil
