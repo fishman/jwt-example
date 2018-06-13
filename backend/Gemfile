@@ -42,6 +42,8 @@ gem 'graphiql-rails'
 gem 'graphql-formatter'
 gem 'newrelic_rpm'
 gem 'grpc'
+gem 'faraday', require: false
+gem 'faraday_middleware', require: false
 
 gem 'foreman'
 
@@ -82,6 +84,8 @@ gem 'devise-jwt', '~> 0.5.6'
 gem 'high_voltage'
 gem 'jquery-rails'
 gem 'pg'
+gem 'sinatra', require: false
+gem 'sinatra-contrib', require: false
 
 group :development do
   gem 'better_errors'

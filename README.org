@@ -67,14 +67,18 @@ Launching the services happens through foreman or docker.
 #+END_SRC
 
 * Testing
-
 ** Rails
 #+BEGIN_SRC sh
   (cd backend ; bundle exe rake spec)
-  (cd frontend ; npm install ; cypress ) # javascript e2e tests
 
 #+END_SRC
+** e2e Testing
+There is a simple cypress e2e test in /frontend/cypress/integration/simple_spec.js
 
+It checks for successful login.
+#+BEGIN_SRC sh
+  (cd frontend ; npm install cypress; cypress ) # javascript e2e tests
+#+END_SRC
 * Ansible
 
 ** HAProxy
@@ -119,6 +123,7 @@ haproxy_backends:
   - [X] deploy to my server
   - [X] fix ssl
   - [ ] version the API
+  - [ ] stub faraday client in rails model
   - [ ] fix the go mock
   - [ ] add some ruby specs
   - [ ] write test for greeting model
