@@ -21,6 +21,7 @@
 - For more security we can rotate the shared keys and store them in Vault rather than config files
 - There's no TLS between the services, so someone could MITM the go greeting
  service
+- cypress deps are insecure, but cypress is added to pkg.json for convenience of this example
 ** Privileges
 - The applications run as www-data but have too many privileges right now
 ** v1 Shared Secret
@@ -67,7 +68,7 @@ Launching the services happens through foreman or docker.
 ** Rails
 #+BEGIN_SRC sh
   (cd backend ; bundle exe rake spec)
-  (cd frontend ; cypress ) # javascript e2e tests
+  (cd frontend ; npm install ; cypress ) # javascript e2e tests
 
 #+END_SRC
 
