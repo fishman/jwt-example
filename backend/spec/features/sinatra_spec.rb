@@ -5,12 +5,14 @@ describe 'Sinatra App' do
   include Rack::Test::Methods
 
   def app
-    SinatraApp.new
+    ApiServer.new
   end
 
-  it "returns json" do 
+  it "returns json" do
     get '/greetings'
+
+    expect(last_response.body).to include("invalid")
+    expect(last_response.status).to eq(401)
   end
 
 end
-

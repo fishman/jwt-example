@@ -23,10 +23,12 @@ class ApiServer < Sinatra::Base
       begin
         auth_token = jwt_decode(token)
       rescue JWT::VerificationError, JWT::DecodeError, NoMethodError
-        return json greetings: { message: "auth token is invalid"}
+        halt 401, json(greetings: { message: "auth token is invalid"})
       end
 
+      json greetings: { message: "Hello #{auth_token['name']}" }
+    else
+      halt 401, json(greetings: { message: "auth token is invalid"})
     end
-    json greetings: { message: "Hello #{auth_token['name']}" }
   end
 end
