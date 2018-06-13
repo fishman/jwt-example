@@ -21,7 +21,8 @@
 - For more security we can rotate the shared keys and store them in Vault rather than config files
 - There's no TLS between the services, so someone could MITM the go greeting
  service
-** priviliges
+** Privileges
+- The applications run as www-data but have too many privileges right now
 ** v1 Shared Secret
 *** Mitigation
     Rotate shared secret, and distribute it with vault
@@ -107,8 +108,8 @@ haproxy_backends:
   - [X] add JWT to go server
   - [X] add expiration on JWT token
   - [X] javascript e2e testing
-  - [ ] ansible deployment
-  - [ ] deploy to my server
+  - [o] ansible deployment
+  - [o] deploy to my server
   - [ ] fix the go mock
   - [ ] add some ruby specs
   - [ ] write test for greeting model
