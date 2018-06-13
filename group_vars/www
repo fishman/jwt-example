@@ -6,7 +6,13 @@ nodejs_install_npm_user: www-data
 postgresql_databases:
   - name: backend_production
   - name: backend_development
-
+postgresql_users:
+  - name: backend_development
+    password: backend_password
+    db: backend_development
+  - name: backend_production
+    password: backend_password
+    db: backend_production
 go_custom_mirror: https://storage.googleapis.com/golang
 go_version: 1.10.2
 GOPATH: /var/www/go
