@@ -2,6 +2,8 @@ import React from 'react'
 import cookie from 'cookie'
 import { withApollo, compose } from 'react-apollo'
 
+import Head from 'next/head';
+
 import withData from '../lib/withData'
 import redirect from '../lib/redirect'
 import checkLoggedIn from '../lib/checkLoggedIn'
@@ -36,6 +38,9 @@ class Index extends React.Component {
   render () {
     return (
       <div>
+        <Head>
+          <title>JWT Example - greeting</title>
+        </Head>
         Hello {this.props.loggedInUser.currentUser.name}!<br />
         Greeting Message: {this.props.greeting.greeting.message} <br />
         <button onClick={this.signout}>Sign out</button>

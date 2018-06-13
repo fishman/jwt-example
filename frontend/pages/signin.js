@@ -8,6 +8,8 @@ import checkLoggedIn from '../lib/checkLoggedIn'
 
 import SigninBox from '../components/SigninBox'
 
+import Head from 'next/head';
+
 class Signin extends React.Component {
   static async getInitialProps (context, apolloClient) {
     const { loggedInUser } = await checkLoggedIn(context, apolloClient)
@@ -24,6 +26,9 @@ class Signin extends React.Component {
   render () {
     return (
       <div>
+        <Head>
+          <title>JWT Example - signin</title>
+        </Head>
         {/* SigninBox handles all login logic. */}
         <SigninBox client={this.props.client} />
         <hr />
