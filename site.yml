@@ -1,0 +1,6 @@
+---
+- hosts: all
+  roles:
+    # - rvm
+    - nodejs
+    # - nginx

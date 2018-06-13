@@ -1,16 +1,5 @@
-* Security
-- XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
-- self.new(h(message))
-- self.name = sanitize(self.name)
-- In theory sanitizing either one of these two would be enough, but since we pass the name to the client as well, we should do both
-- JWT had a security bug where specifying the algo none would cause it to accept bad tokens, ruby doesn't allow that
-  - https://github.com/jwt/ruby-jwt/issues/75
-- I'm use HS256 default JWT tokens with shared keys.
-- For more security we can rotate the shared keys and store them in Vault rather than config files
-- There's no TLS between the services, so someone could MITM the go greeting
- service
 * Architecture
-** Tag v1.0
+** v1.0
 *** Rails Web
     - devise login
     - react + apollo frontend
@@ -22,6 +11,17 @@
    - (I could also just use a JSON Api)
 *** Deployment
 * Security
+- XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
+- self.new(h(message))
+- self.name = sanitize(self.name)
+- In theory sanitizing either one of these two would be enough, but since we pass the name to the client as well, we should do both
+- JWT had a security bug where specifying the algo none would cause it to accept bad tokens, ruby doesn't allow that
+  - https://github.com/jwt/ruby-jwt/issues/75
+- I'm use HS256 default JWT tokens with shared keys.
+- For more security we can rotate the shared keys and store them in Vault rather than config files
+- There's no TLS between the services, so someone could MITM the go greeting
+ service
+** priviliges
 ** v1 Shared Secret
 *** Mitigation
     Rotate shared secret, and distribute it with vault
@@ -30,7 +30,6 @@
 - Or apps are deployed with each others pub keys - this is an issue
 ** GDPR Why google analytics?
 Cause I want to know when you check out the page
-
 * Install
 ** Ruby on Rails
 This application requires:
@@ -71,15 +70,50 @@ Launching the services happens through foreman or docker.
 
 #+END_SRC
 
+* Ansible
+
+** HAProxy
+#+BEGIN_SRC yaml
+haproxy_frontends:
+  - name: https-in
+    mode: http
+    options:
+      - httplog
+    bind:
+      - '127.0.0.1:19443 ssl crt {{ certbot_dest_bundle }}'
+    acl:
+      - name: letsencrypt-acl
+        condition: path_beg /.well-known/acme-challenge/
+      - name: host_demo3
+        condition: hdr(host) -i demo3.xxx.com
+    use_backend:
+      - name: demo3_cluster
+        condition: if host_demo3
+
+haproxy_backends:
+  - name: demo3_cluster
+    balance: leastconn
+    options:
+      - forwardfor
+    servers:
+      - name: node1
+        ip: x.x.x.x
+        port: 80
+#+END_SRC
+
 * Todo
   - [X] set static shared key
   - [X] create ruby greeter client
   - [X] add JWT to go server
   - [X] add expiration on JWT token
-  - [ ] add docker compose
-  - [ ] javascript e2e testing
-  - [ ] make sure client properly cleans up token if it expires earlier or was invalidated
+  - [X] javascript e2e testing
   - [ ] ansible deployment
+  - [ ] deploy to my server
+  - [ ] fix the go mock
+  - [ ] add some ruby specs
+  - [ ] write test for greeting model
+  - [ ] add docker compose
+  - [ ] make sure client properly cleans up token if it expires earlier or was invalidated
   - [ ] Move const config from greeter_server to config files
   - [ ] add TLS for service communication
   - [ ] add openid_connect and auth proxy

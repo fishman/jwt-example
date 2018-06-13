@@ -1,0 +1,5 @@
+rvm1_rubies: ['ruby-2.4.2']
+rvm1_install_flags: '--auto-dotfiles'     # Remove --user-install from defaults
+rvm1_install_path: /usr/local/rvm         # Set to system location
+rvm1_user: root                           # Need root account to access system location
+nodejs_install_npm_user: www-data
