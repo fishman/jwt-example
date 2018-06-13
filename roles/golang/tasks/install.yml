@@ -1,0 +1,54 @@
+---
+
+- name: "Go-Lang | Include bootstrap tasks"
+  include_tasks: install-bootstrap.yml
+  when:
+    (install_go_bootstrap|bool == true) and
+    ((go_binary_bootstrap.stat.exists|bool == false) or
+    (expected_go_version_output|string not in current_go_version.stdout|default('')) or
+    (go_install_clean|bool == true)) and
+    (GOROOT_BOOTSTRAP is defined)
+
+- name: "Go-Lang | Include source build tasks"
+  include_tasks: install-git.yml
+  when:
+    (build_go_from_source|bool == true) and
+    ((expected_go_version_output|string not in current_go_version.stdout|default('')) or
+    (go_install_clean|bool == true))
+
+- name: "Go-Lang | Include distro install tasks"
+  include_tasks: install-distro.yml
+  when:
+    (build_go_from_source|bool == false) and
+    ((expected_go_version_output|string not in current_go_version.stdout|default('')) or
+    (go_install_clean|bool == true))
+
+- name: "Go-Lang | Ensure shell profiles are configured"
+  lineinfile:
+    dest: "{{ item[0].stat.path }}"
+    regexp: "{{ item[1].regex }}"
+    line: "{{ item[1].lineinfile }}"
+    state: present
+  with_nested:
+  - "{{ stat_shell_profiles.results }}"
+  - "{{ shell_exports }}"
+  when:
+  - stat_shell_profiles is defined
+  - shell_profiles is defined
+  - item[0].stat.exists|bool == true
+
+- name: "Go-Lang | Verify version"
+  shell: "{{ GOROOT }}/bin/go version"
+  environment:
+    GOROOT: "{{ GOROOT }}"
+    GOPATH: "{{ GOPATH }}"
+  register: go_version_output
+  failed_when: >
+    (go_version_string not in go_version_output.stdout) and
+    ("go version devel" not in go_version_output.stdout)
+  changed_when: false
+
+- name: "Go-Lang | Restart shell"
+  shell: "{{ fubarhouse_user_dir }}/{{ item }}"
+  with_items: "{{ shell_profiles }}"
+  failed_when: false
