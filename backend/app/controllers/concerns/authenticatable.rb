@@ -3,7 +3,7 @@ module Authenticatable
   require 'json_web_token'
   def authenticate
     if request.headers["Authorization"].present?
-      pattern = /^Bearer /
+      pattern = /^Bearer /i
       header  = request.headers['Authorization']
       token = header.gsub(pattern, '') if header && header.match(pattern)
 
