@@ -48,5 +48,7 @@ module Backend
     config.autoload_paths << Rails.root.join('app/graph/utils')
     config.autoload_paths << Rails.root.join('app/graph/mutations')
     config.autoload_paths << Rails.root.join('app/graph/types')
+
+    config.grpc_server = 'localhost:50051'
   end
 end

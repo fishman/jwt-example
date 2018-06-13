@@ -13,7 +13,7 @@ class Greeting
 
   def self.fetch(token)
     metadata = {authorization: token}
-    stub = Greeter::Greeter::Stub.new('localhost:50051', :this_channel_is_insecure)
+    stub = Greeter::Greeter::Stub.new(Rails.configuration.grpc_server, :this_channel_is_insecure)
     message = stub.say_hello(Greeter::HelloRequest.new(), metadata: metadata).message
 
 
