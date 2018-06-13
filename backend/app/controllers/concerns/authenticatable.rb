@@ -1,5 +1,6 @@
 # coding: utf-8
 module Authenticatable
+  require 'json_web_token'
   def authenticate
     if request.headers["Authorization"].present?
       pattern = /^Bearer /
