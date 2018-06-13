@@ -113,7 +113,8 @@ haproxy_backends:
   - [X] add expiration on JWT token
   - [X] javascript e2e testing
   - [o] ansible deployment
-  - [o] deploy to my server
+  - [X] deploy to my server
+  - [X] fix ssl
   - [ ] fix the go mock
   - [ ] add some ruby specs
   - [ ] write test for greeting model
