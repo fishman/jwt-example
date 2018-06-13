@@ -6,6 +6,7 @@
   - [ ] add expiration on JWT token
   - [ ] Move const config from greeter_server to config files
   - [ ] add docker compose
+  - [ ] javascript e2e testing
   - [ ] add TLS for service communication
   - [ ] add openid_connect and auth proxy
   - [ ] add something like linkerd for service communication
@@ -13,6 +14,7 @@
 - XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
 - self.new(h(message))
 - self.name = sanitize(self.name)
+- In theory sanitizing either one of these two would be enough, but since we pass the name to the client as well, we should do both
 - JWT had a security bug where specifying the algo none would cause it to accept bad tokens, ruby doesn't allow that
   - https://github.com/jwt/ruby-jwt/issues/75
 - I'm use HS256 default JWT tokens with shared keys.
@@ -39,3 +41,13 @@
 - Or apps are deployed with each others pub keys - this is an issue
 ** GDPR Why google analytics?
 Cause I want to know when you check out the page
+
+* Install
+** Ruby on Rails
+This application requires:
+
+- Ruby 2.4.2
+- Rails 5.2.0
+
+Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+
