@@ -1,0 +1,3 @@
+backend: bundle exec rails s
+frontend: sh -c 'cd ../frontend ; yarn dev'
+greeter: bundle exec lib/api_server.rb
