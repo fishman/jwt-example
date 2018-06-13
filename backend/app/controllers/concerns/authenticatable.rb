@@ -16,7 +16,7 @@ module Authenticatable
         end
       end
     end
-  rescue JWT::VerificationError, JWT::DecodeError
+  rescue JWT::VerificationError, JWT::DecodeError, NoMethodError
     render json: FieldError.error("Auth token is invalid")
   end
 

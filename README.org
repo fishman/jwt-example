@@ -26,16 +26,18 @@
 ** Tag v1.0
 *** Rails Web
     - devise login
-    - html served
-    - synchronous
+    - react + apollo frontend
+    - graphql API
+    - synchronous grpc call. asynchronous call in fiber would be nice, but then we would need to have a push to the client
 *** Greeting API
-   - grpc go greeting certificate auth
+   - grpc go greeting service. responds with Hello, + Name.
+     The name is stored in the JWT
    - (I could also just use a JSON Api)
 *** Deployment
 * Security
 ** v1 Shared Secret
 *** Mitigation
-    Rotate shared secret, and distributed with vault
+    Rotate shared secret, and distribute it with vault
 ** Pub Key
 - Either there is a pub key store somewhere
 - Or apps are deployed with each others pub keys - this is an issue
@@ -50,4 +52,21 @@ This application requires:
 - Rails 5.2.0
 
 Learn more about [Installing Rails](http://railsapps.github.io/installing-rails.html).
+** Other dependencies
+- Go
+- Node.js + npm (I guess this is a security issue all by itself)
 
+** Preparations
+We need to make sure the go grpc tools are available. And the ruby and go protobuf services are generated.
+#+BEGIN_SRC sh
+  ./prep.sh
+  ./gen.sh  # this will also set the correct GOPATH and build the greeter
+  (cd frontend ; yarn)
+  (cd backend ; bundle install)
+#+END_SRC
+
+** Launch
+Launching the services happens through foreman or docker.
+#+BEGIN_SRC sh
+  (cd backend ; foreman start)
+#+END_SRC

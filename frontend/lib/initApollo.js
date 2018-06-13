@@ -12,7 +12,7 @@ if (!process.browser) {
 
 function create (initialState, { getToken }) {
   const httpLink = createHttpLink({
-    uri: 'http://localhost:3000/graphql',
+    uri: 'http://localhost:5000/graphql',
     credentials: 'same-origin'
   })
 

@@ -43,6 +43,8 @@ gem 'graphql-formatter'
 gem 'newrelic_rpm'
 gem 'grpc'
 
+gem 'foreman'
+
 group :production do
   # gem 'pg'
   gem 'optics-agent'
