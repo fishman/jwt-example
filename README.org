@@ -48,7 +48,7 @@ We need to make sure the go grpc tools are available. And the ruby and go protob
 #+BEGIN_SRC sh
   ./prep.sh
   ./gen.sh  # this will also set the correct GOPATH and build the greeter
-  (cd frontend ; yarn)
+  (cd frontend ; yarn install)
   (cd backend ; bundle install)
 #+END_SRC
 
@@ -61,11 +61,12 @@ Launching the services happens through foreman or docker.
   - [X] set static shared key
   - [X] create ruby greeter client
   - [X] add JWT to go server
-  - [ ] ansible deployment
-  - [ ] add expiration on JWT token
-  - [ ] Move const config from greeter_server to config files
+  - [X] add expiration on JWT token
   - [ ] add docker compose
   - [ ] javascript e2e testing
+  - [ ] make sure client properly cleans up token if it expires earlier or was invalidated
+  - [ ] ansible deployment
+  - [ ] Move const config from greeter_server to config files
   - [ ] add TLS for service communication
   - [ ] add openid_connect and auth proxy
   - [ ] add something like linkerd for service communication
