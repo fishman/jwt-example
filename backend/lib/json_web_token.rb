@@ -2,6 +2,7 @@ require 'jwt'
 
 class JsonWebToken
   def self.encode(payload)
+    payload[:exp] = (Rails.configuration.jwt_duration).seconds.from_now.to_i
     JWT.encode(payload, Rails.application.secrets.jwt_secret)
   end
 
