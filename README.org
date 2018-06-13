@@ -55,7 +55,7 @@ We need to make sure the go grpc tools are available. And the ruby and go protob
 ** Launch
 Launching the services happens through foreman or docker.
 #+BEGIN_SRC sh
-  (cd backend ; foreman start)
+  (cd backend ; bundle exec foreman start)
 #+END_SRC
 * Todo
   - [X] set static shared key
