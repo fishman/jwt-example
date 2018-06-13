@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 
-option go_package = "greeter_proto/greeter";
+option go_package = "greeter_proto";
 
 package greeter;
 

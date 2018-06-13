@@ -20,7 +20,6 @@ package main
 
 import (
 	"log"
-	"os"
 	"time"
 
 	pb "greeter_proto"
@@ -44,13 +43,9 @@ func main() {
 	c := pb.NewGreeterClient(conn)
 
 	// Contact the server and print out its response.
-	name := defaultName
-	if len(os.Args) > 1 {
-		name = os.Args[1]
-	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
-	r, err := c.SayHello(ctx, &pb.HelloRequest{Name: name})
+	r, err := c.SayHello(ctx, &pb.HelloRequest{})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
