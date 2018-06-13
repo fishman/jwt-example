@@ -17,3 +17,22 @@ go_custom_mirror: https://storage.googleapis.com/golang
 go_version: 1.10.2
 GOPATH: /var/www/go
 GOROOT: /usr/local/go
+
+nginx_sites:
+  default:
+    - listen 80
+    - server_name _
+    - root "/var/www/jwt-example/frontend/.next/dist/"
+    - location / { proxy_pass http://app_proxy; }
+    - location /graphql { proxy_pass http://api_proxy; }
+
+nginx_configs:
+  proxy:
+      - proxy_set_header X-Real-IP  $remote_addr
+      - proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for
+  upstream:
+      - upstream app_proxy { server 127.0.0.1:8080 weight=10; }
+      - upstream api_proxy { server 127.0.0.1:5000 weight=10; }
+  gzip:
+      - gzip on
+      - gzip_disable msie6

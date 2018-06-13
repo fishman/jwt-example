@@ -106,6 +106,9 @@ haproxy_backends:
         port: 80
 #+END_SRC
 
+** nginx
+   configured automatically with ansible
+
 * Todo
   - [X] set static shared key
   - [X] create ruby greeter client
@@ -115,6 +118,7 @@ haproxy_backends:
   - [o] ansible deployment
   - [X] deploy to my server
   - [X] fix ssl
+  - [ ] version the API
   - [ ] fix the go mock
   - [ ] add some ruby specs
   - [ ] write test for greeting model
