@@ -50,6 +50,7 @@ module Backend
     config.autoload_paths << Rails.root.join('app/graph/types')
 
     config.grpc_server = 'localhost:50051'
+    config.rest_greeter = 'http://localhost:9292'
     config.jwt_duration = 60*30 # 30 minutes
   end
 end

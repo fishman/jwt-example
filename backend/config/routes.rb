@@ -16,5 +16,6 @@ Rails.application.routes.draw do
       end
     end
 
+  end
   # get '*all', to: 'application#index'
 end

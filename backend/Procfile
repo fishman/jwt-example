@@ -1,3 +1,5 @@
+# comment either greeter to switch from grpc to "rest" api
 backend: bundle exec rails s
 frontend: sh -c 'cd ../frontend ; yarn dev'
-greeter: ../go/bin/greeter_server
+# greeter: ../go/bin/greeter_server
+greeter_http: sh -c 'cd api ; bundle exec rackup'

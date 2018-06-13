@@ -1,6 +1,6 @@
 #!/usr/bin/env bundle exec ruby
 
-require 'sinatra'
+require 'sinatra/base'
 require "sinatra/json"
 require 'json'
 require 'jwt'
@@ -12,19 +12,21 @@ def jwt_decode(token)
   return HashWithIndifferentAccess.new(JWT.decode(token, SHARED_KEY)[0])
 end
 
-get '/greetings' do
-  authorization_header = request.env['HTTP_AUTHORIZATION']
-  auth_token = nil
-  if authorization_header
-    pattern = /^Bearer /i
-    token = authorization_header.gsub(pattern, '') if authorization_header && authorization_header.match(pattern)
+class ApiServer < Sinatra::Base
+  get '/greetings' do
+    authorization_header = request.env['HTTP_AUTHORIZATION']
+    auth_token = nil
+    if authorization_header
+      pattern = /^Bearer /i
+      token = authorization_header.gsub(pattern, '') if authorization_header && authorization_header.match(pattern)
 
-    begin
-      auth_token = jwt_decode(token)
-    rescue JWT::VerificationError, JWT::DecodeError, NoMethodError
-      return json greetings: { message: "auth token is invalid"}
+      begin
+        auth_token = jwt_decode(token)
+      rescue JWT::VerificationError, JWT::DecodeError, NoMethodError
+        return json greetings: { message: "auth token is invalid"}
+      end
+
     end
-
+    json greetings: { message: "Hello #{auth_token['name']}" }
   end
-  json greetings: { message: "Hello #{auth_token['name']}" }
 end

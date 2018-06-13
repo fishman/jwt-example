@@ -23,11 +23,12 @@ class Greeting
   rescue GRPC::NotFound, GRPC::Unauthenticated
     self.new("Bad auth token")
   rescue GRPC::Unavailable
-    self.new("Greeter service down")
+    # if grpc is not available try http
+    self.fetch_http(token)
   end
 
-  def fetch_http(token)
-    conn = Faraday.new(:url => "http://#{Rails.configuration.grpc_server}") do |faraday|
+  def self.fetch_http(token)
+    conn = Faraday.new(:url => "#{Rails.configuration.rest_greeter}") do |faraday|
       faraday.request  :url_encoded
       faraday.request :json
       faraday.response :json, :content_type => /\bjson$/
