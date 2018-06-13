@@ -1,15 +1,3 @@
-* TODO
-  - [X] set static shared key
-  - [X] create ruby greeter client
-  - [X] add JWT to go server
-  - [ ] ansible deployment
-  - [ ] add expiration on JWT token
-  - [ ] Move const config from greeter_server to config files
-  - [ ] add docker compose
-  - [ ] javascript e2e testing
-  - [ ] add TLS for service communication
-  - [ ] add openid_connect and auth proxy
-  - [ ] add something like linkerd for service communication
 * Security
 - XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
 - self.new(h(message))
@@ -70,3 +58,15 @@ Launching the services happens through foreman or docker.
 #+BEGIN_SRC sh
   (cd backend ; foreman start)
 #+END_SRC
+* Todo
+  - [X] set static shared key
+  - [X] create ruby greeter client
+  - [X] add JWT to go server
+  - [ ] ansible deployment
+  - [ ] add expiration on JWT token
+  - [ ] Move const config from greeter_server to config files
+  - [ ] add docker compose
+  - [ ] javascript e2e testing
+  - [ ] add TLS for service communication
+  - [ ] add openid_connect and auth proxy
+  - [ ] add something like linkerd for service communication
