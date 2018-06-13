@@ -8,7 +8,9 @@
 *** Greeting API
    - grpc go greeting service. responds with Hello, + Name.
      The name is stored in the JWT
-   - alternatively there is a sinatra http server for the greeter in lib/api_server
+   - alternatively there is a sinatra http server for the greeter in
+     lib/api_server, you can toggle them in the Procfile. The backend will
+     automatically fallback to rest when the grpc server is not found
 *** Deployment
 * Security
 - XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
