@@ -23,7 +23,7 @@ const SigninBox = (props) => {
     <Mutation mutation={SIGN_IN} onCompleted={(data) => {
       // Store the token in cookie
         if (!data.signIn.token) {
-          return
+          return false
         }
       document.cookie = cookie.serialize('token', data.signIn.token, {
         maxAge: 30 * 60 // 30 minutes
