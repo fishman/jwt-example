@@ -9,7 +9,6 @@
 - For more security we can rotate the shared keys and store them in Vault rather than config files
 - There's no TLS between the services, so someone could MITM the go greeting
  service
-* Build & Run
 * Architecture
 ** Tag v1.0
 *** Rails Web
