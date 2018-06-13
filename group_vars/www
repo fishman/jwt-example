@@ -5,6 +5,7 @@ rvm1_user: root                           # Need root account to access system l
 nodejs_install_npm_user: www-data
 postgresql_databases:
   - name: backend_production
+  - name: backend_development
 
 go_custom_mirror: https://storage.googleapis.com/golang
 go_version: 1.10.2
