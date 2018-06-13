@@ -1,14 +1,14 @@
 * Architecture
 ** v1.0
-*** Rails Web
+*** Rails API
     - devise login
     - react + apollo frontend
-    - graphql API
-    - synchronous grpc call. asynchronous call in fiber would be nice, but then we would need to have a push to the client
+    - graphql API, because state management in react is easier that way
+    - synchronous grpc or rest call. asynchronous call in fiber would be nice, but then we would need to have a push to the client
 *** Greeting API
    - grpc go greeting service. responds with Hello, + Name.
      The name is stored in the JWT
-   - (I could also just use a JSON Api)
+   - alternatively there is a sinatra http server for the greeter in lib/api_server
 *** Deployment
 * Security
 - XSS: The message from the greeting service (even though this is not necessary) as well as the users name are sanitized
